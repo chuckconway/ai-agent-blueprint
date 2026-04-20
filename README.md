@@ -2,80 +2,7 @@
 
 **Build AI-powered web applications that work — and keep working as they grow.**
 
-You have an idea for an AI-powered app. Maybe it's a customer support agent, a research assistant, a content generator, or something nobody's built yet. You know AI can do incredible things. But between "I have an idea" and "I have a working product," there's a canyon of infrastructure decisions, architectural patterns, and engineering practices that can make or break your project.
-
-This blueprint bridges that canyon.
-
-## The Problem
-
-Building with AI agents is deceptively easy to start and surprisingly hard to sustain. Here's what typically happens:
-
-1. **Day 1**: You get a chat interface working. The AI responds. It feels magical.
-2. **Week 2**: You add features. Things start breaking in unexpected ways. The AI agent calls the wrong tool. Responses are slow. You're not sure where to put new code.
-3. **Month 2**: The codebase is a maze. Every change breaks something else. You're afraid to deploy. Your AI agent works great in testing and fails in production. Technical debt is piling up faster than features.
-
-This isn't a skill problem — it's a structure problem. Without the right foundations, even experienced engineers end up with fragile, hard-to-change code. And if you're building with AI coding assistants (Claude Code, Cursor, Copilot), the problem compounds: **an AI assistant without guardrails will write working code that slowly becomes unworkable code.**
-
-## What This Blueprint Gives You
-
-Use this template and you get a production-grade application with everything already wired up:
-
-### An AI Agent That Does Things (Not Just Chats)
-
-Most AI demos stop at chat. Real AI applications need agents that can **take actions** — look up data, call APIs, run calculations, interact with your business logic. This blueprint includes:
-
-- **Tool system**: Teach your agent new capabilities by writing a Python function and adding a decorator. That's it.
-- **Streaming responses**: Users see the AI thinking and responding in real-time, not staring at a loading spinner.
-- **Provider flexibility**: Start with Claude, switch to GPT, try Gemini — change one setting, not your codebase.
-- **Interceptor pipeline**: Add logging, content filtering, or usage tracking without touching your agent logic.
-
-### Quality Guardrails That Run Automatically
-
-This is where the blueprint pays for itself. When you're building with AI coding assistants, the assistant doesn't inherently know your project's rules. It will write code that works *right now* but violates patterns that matter *over time*. The blueprint includes **18 automated checks** that run before every commit:
-
-- **Code formatting and style** — enforced automatically, not by code review arguments
-- **Type safety** — catches bugs before they reach production
-- **Architecture enforcement** — prevents the spaghetti code that makes projects unmaintainable
-- **Dead code detection** — keeps the codebase lean
-- **Quality ratchet** — code quality can only improve over time, never degrade
-
-Here's the thing: **you don't need to understand any of these tools.** They run silently in the background. If your AI assistant tries to write code that breaks the rules, the checks catch it and the assistant fixes it before you ever see it. It's like having a senior engineer reviewing every line, 24/7.
-
-**Without these guardrails**, AI-assisted code tends to accumulate shortcuts — unused imports, untyped functions, circular dependencies, overly complex logic. Each one is small. Together, after a few months, they make the codebase hostile to change. The blueprint prevents that drift from day one.
-
-### A Web Application, Not Just a Backend
-
-You get a complete, working application:
-
-- **Login page** → authenticate → **Chat interface** → talk to your AI agent
-- Built with React, TypeScript, and Tailwind CSS — the same stack used by most modern web applications
-- Mobile-friendly, dark theme, clean design
-- Ready to extend with your own pages and features
-
-### A Database and Background Jobs
-
-Most AI apps need to remember things and do work in the background. Included:
-
-- **PostgreSQL** for storing users, conversations, and your application data
-- **Safe database changes** — a migration system that lets you update your database without breaking your running application
-- **Background task queue** — for long-running operations that shouldn't block a user's request (sending emails, processing documents, calling slow APIs)
-
-### Deployment-Ready Infrastructure
-
-When you're ready to go live:
-
-- **Docker** packages your entire application into a container that runs anywhere
-- **Docker Compose** runs everything locally with one command
-- **Kubernetes manifests** are included for when you're ready to deploy to production cloud infrastructure
-
-## Who This Is For
-
-- **Builders who work with AI coding assistants** — The guardrails keep your AI assistant productive without letting it create a mess.
-- **Developers starting a new AI project** — Skip weeks of infrastructure setup. Start building features on day one.
-- **Teams that want consistency** — Every project built from this blueprint follows the same conventions, making it easy to switch between projects or onboard new people.
-- **Non-engineers building AI products** — You don't need to be a software engineer to use this. If you can work with an AI coding assistant, the blueprint provides the structure. You bring the ideas.
-
----
+A production-ready starter template for AI agent applications. Clone it, point your AI coding assistant at it, and start building. The blueprint handles the architecture, quality guardrails, and infrastructure so you can focus on your idea.
 
 ## Getting Started
 
@@ -187,6 +114,75 @@ claude plugins install superpowers@claude-plugins-official
 This is optional but recommended if you're using Claude Code for development.
 
 </details>
+
+---
+
+## Why This Exists
+
+Building with AI agents is deceptively easy to start and surprisingly hard to sustain. Here's what typically happens:
+
+1. **Day 1**: You get a chat interface working. The AI responds. It feels magical.
+2. **Week 2**: You add features. Things start breaking in unexpected ways. The AI agent calls the wrong tool. Responses are slow. You're not sure where to put new code.
+3. **Month 2**: The codebase is a maze. Every change breaks something else. You're afraid to deploy. Your AI agent works great in testing and fails in production. Technical debt is piling up faster than features.
+
+This isn't a skill problem — it's a structure problem. Without the right foundations, even experienced engineers end up with fragile, hard-to-change code. And if you're building with AI coding assistants (Claude Code, Cursor, Copilot), the problem compounds: **an AI assistant without guardrails will write working code that slowly becomes unworkable code.**
+
+## What This Blueprint Gives You
+
+### An AI Agent That Does Things (Not Just Chats)
+
+Most AI demos stop at chat. Real AI applications need agents that can **take actions** — look up data, call APIs, run calculations, interact with your business logic. This blueprint includes:
+
+- **Tool system**: Teach your agent new capabilities by writing a Python function and adding a decorator. That's it.
+- **Streaming responses**: Users see the AI thinking and responding in real-time, not staring at a loading spinner.
+- **Provider flexibility**: Start with Claude, switch to GPT, try Gemini — change one setting, not your codebase.
+- **Interceptor pipeline**: Add logging, content filtering, or usage tracking without touching your agent logic.
+
+### Quality Guardrails That Run Automatically
+
+This is where the blueprint pays for itself. When you're building with AI coding assistants, the assistant doesn't inherently know your project's rules. It will write code that works *right now* but violates patterns that matter *over time*. The blueprint includes **18 automated checks** that run before every commit:
+
+- **Code formatting and style** — enforced automatically, not by code review arguments
+- **Type safety** — catches bugs before they reach production
+- **Architecture enforcement** — prevents the spaghetti code that makes projects unmaintainable
+- **Dead code detection** — keeps the codebase lean
+- **Quality ratchet** — code quality can only improve over time, never degrade
+
+Here's the thing: **you don't need to understand any of these tools.** They run silently in the background. If your AI assistant tries to write code that breaks the rules, the checks catch it and the assistant fixes it before you ever see it. It's like having a senior engineer reviewing every line, 24/7.
+
+**Without these guardrails**, AI-assisted code tends to accumulate shortcuts — unused imports, untyped functions, circular dependencies, overly complex logic. Each one is small. Together, after a few months, they make the codebase hostile to change. The blueprint prevents that drift from day one.
+
+### A Web Application, Not Just a Backend
+
+You get a complete, working application:
+
+- **Login page** → authenticate → **Chat interface** → talk to your AI agent
+- Built with React, TypeScript, and Tailwind CSS — the same stack used by most modern web applications
+- Mobile-friendly, dark theme, clean design
+- Ready to extend with your own pages and features
+
+### A Database and Background Jobs
+
+Most AI apps need to remember things and do work in the background. Included:
+
+- **PostgreSQL** for storing users, conversations, and your application data
+- **Safe database changes** — a migration system that lets you update your database without breaking your running application
+- **Background task queue** — for long-running operations that shouldn't block a user's request (sending emails, processing documents, calling slow APIs)
+
+### Deployment-Ready Infrastructure
+
+When you're ready to go live:
+
+- **Docker** packages your entire application into a container that runs anywhere
+- **Docker Compose** runs everything locally with one command
+- **Kubernetes manifests** are included for when you're ready to deploy to production cloud infrastructure
+
+## Who This Is For
+
+- **Builders who work with AI coding assistants** — The guardrails keep your AI assistant productive without letting it create a mess.
+- **Developers starting a new AI project** — Skip weeks of infrastructure setup. Start building features on day one.
+- **Teams that want consistency** — Every project built from this blueprint follows the same conventions, making it easy to switch between projects or onboard new people.
+- **Non-engineers building AI products** — You don't need to be a software engineer to use this. If you can work with an AI coding assistant, the blueprint provides the structure. You bring the ideas.
 
 ---
 
