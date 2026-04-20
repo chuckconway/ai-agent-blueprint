@@ -77,14 +77,20 @@ When you're ready to go live:
 
 ## Quick Start
 
+### Prerequisites
+
+You'll need [Git](https://git-scm.com/downloads) and [Docker](https://www.docker.com/get-started/) installed. If you don't have Git yet, the link will walk you through installation for your operating system.
+
 ### 1. Create Your Project
 
-Click **"Use this template"** on GitHub, or:
+On GitHub, click the green **"Use this template"** button at the top of this page, then clone your new repo:
 
 ```bash
-gh repo create my-project --template chuckconway/ai-agent-blueprint --public
+git clone https://github.com/YOUR-USERNAME/my-project.git
 cd my-project
 ```
+
+Replace `YOUR-USERNAME/my-project` with whatever you named it.
 
 ### 2. Configure
 
