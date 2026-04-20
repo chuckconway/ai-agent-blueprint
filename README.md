@@ -79,96 +79,114 @@ When you're ready to go live:
 
 ## Getting Started
 
-There are two ways to use this blueprint: **point your AI assistant at it**, or **set it up yourself**. Most people will do the first.
-
-### Option A: Let Your AI Assistant Handle It
-
-If you're working with an AI coding assistant like [Claude Code](https://claude.ai/code), you can simply tell it:
+The easiest way to use this blueprint is to **tell your AI coding assistant to set it up for you.** If you're using [Claude Code](https://claude.ai/code), [Cursor](https://cursor.com), or a similar AI coding tool, just say:
 
 > "Use https://github.com/chuckconway/ai-agent-blueprint as the template for my new project. Set it up and get it running."
 
-Your AI assistant will read the blueprint, understand the structure, and set everything up for you. The [CLAUDE.md](CLAUDE.md) file in this repo is specifically designed to give AI assistants all the context they need to work within this project's conventions.
+Your AI assistant will read the blueprint, understand the structure, install what's needed, and get everything running. The [CLAUDE.md](CLAUDE.md) file in this repo is specifically designed to give AI assistants all the context they need to work within this project's conventions.
 
-### Option B: Set It Up Yourself
+That's the recommended path. Your AI assistant knows how to handle the technical setup so you can focus on what you're building.
 
-If you prefer to set things up manually, here's what you need and how to get started.
+If you want to understand what's happening under the hood, or if your AI assistant needs a reference, the full manual setup instructions are below.
 
-#### What You'll Need to Install
+<details>
+<summary><strong>Manual Setup Instructions</strong> (click to expand)</summary>
+
+### What You'll Need to Install
+
+Before you begin, you'll need a few tools on your computer. If any of these are new to you, don't worry — each link below has step-by-step installation guides for Windows, Mac, and Linux.
 
 | Tool | What It Is | Where to Get It |
 |------|-----------|----------------|
-| **Git** | Version control — tracks changes to your code | [git-scm.com/downloads](https://git-scm.com/downloads) |
-| **Docker** | Runs your app and its services (database, cache) in containers | [docker.com/get-started](https://www.docker.com/get-started/) |
-| **Node.js** | Runs the frontend development tools (includes npm) | [nodejs.org](https://nodejs.org/) — download the LTS version |
-| **Python 3.12+** | The backend programming language | [python.org/downloads](https://www.python.org/downloads/) |
-| **uv** | Fast Python package manager (replaces pip) | [docs.astral.sh/uv](https://docs.astral.sh/uv/getting-started/installation/) |
+| **Git** | Version control — tracks changes to your code so you can undo mistakes and collaborate | [git-scm.com/downloads](https://git-scm.com/downloads) |
+| **Docker** | Runs your app and its services (database, cache) in isolated containers so everything works the same on every computer | [docker.com/get-started](https://www.docker.com/get-started/) |
+| **Node.js** | Runs the frontend (web interface) development tools. Installing Node.js also installs **npm**, which manages frontend code packages | [nodejs.org](https://nodejs.org/) — download the LTS (Long Term Support) version |
+| **Python 3.12+** | The programming language the backend is written in | [python.org/downloads](https://www.python.org/downloads/) |
+| **uv** | A fast tool for installing Python packages (similar to pip, but much faster) | [docs.astral.sh/uv](https://docs.astral.sh/uv/getting-started/installation/) |
 
-Don't worry if some of these are unfamiliar. Each link has installation instructions for Windows, Mac, and Linux.
+### Step 1: Create Your Project
 
-#### Step by Step
+On this GitHub page, click the green **"Use this template"** button near the top of the page, then click **"Create a new repository."** Give your project a name and click **Create repository**.
 
-**1. Create your project from this template**
-
-On this GitHub page, click the green **"Use this template"** button near the top, then **"Create a new repository."** Give it a name and create it.
-
-Then open a terminal and download your new project:
+Now you need to download your new project to your computer. Open a **terminal** (on Mac: search for "Terminal" in Spotlight; on Windows: search for "Command Prompt" or "PowerShell" in the Start menu) and type:
 
 ```bash
 git clone https://github.com/YOUR-USERNAME/my-project.git
 cd my-project
 ```
 
-Replace `YOUR-USERNAME/my-project` with the name you chose.
+Replace `YOUR-USERNAME/my-project` with whatever you named your repository.
 
-**2. Set up your configuration**
+### Step 2: Configure Your Settings
 
-Your project needs a few settings — most importantly, an API key for the AI provider you want to use (Anthropic for Claude, OpenAI for GPT, or Google for Gemini).
+Your project needs a few settings — most importantly, an API key for the AI provider you want to use.
+
+**What's an API key?** It's like a password that lets your application talk to an AI service (Claude, GPT, or Gemini). You get one by creating an account with the AI provider:
+- **Anthropic (Claude)**: [console.anthropic.com](https://console.anthropic.com/)
+- **OpenAI (GPT)**: [platform.openai.com](https://platform.openai.com/)
+- **Google (Gemini)**: [aistudio.google.com](https://aistudio.google.com/)
+
+Once you have your API key, run this in your terminal:
 
 ```bash
 cp env.example .env
 ```
 
-This creates a `.env` file from the example template. Open it in any text editor and fill in at least:
-- `LLM_PROVIDER` — which AI to use (`anthropic`, `openai`, or `google`)
-- The matching API key (`ANTHROPIC_API_KEY`, `OPENAI_API_KEY`, or `GOOGLE_API_KEY`)
+This creates a settings file called `.env` from the included example. Open `.env` in any text editor (even Notepad works) and fill in:
 
-Everything else has sensible defaults.
+- **`LLM_PROVIDER`** — which AI to use: `anthropic`, `openai`, or `google`
+- **The matching API key** — `ANTHROPIC_API_KEY`, `OPENAI_API_KEY`, or `GOOGLE_API_KEY`
 
-**3. Start the backend**
+Everything else has sensible defaults that work out of the box.
 
-This one command starts your database, cache, API server, and background worker:
+### Step 3: Start the Backend
+
+This one command starts your database, cache, API server, and background worker all at once:
 
 ```bash
 docker compose up
 ```
 
-The first run downloads everything it needs, which takes a few minutes. After that, it starts in seconds.
+The first time you run this, Docker downloads everything it needs. This can take a few minutes depending on your internet speed. After the first time, it starts in seconds.
 
-**4. Start the frontend** (in a separate terminal window)
+You'll see a stream of log messages in the terminal. That's normal — it's showing you what each service is doing. Leave this terminal window open.
+
+### Step 4: Start the Frontend
+
+Open a **second terminal window** (keep the first one running) and type:
 
 ```bash
-cd ui
+cd my-project/ui
 npm install
 npm run dev
 ```
 
-`npm install` downloads the frontend dependencies (you only need to do this once). `npm run dev` starts the development server.
+- `npm install` downloads the frontend's code packages. You only need to do this once.
+- `npm run dev` starts the web interface development server.
 
-**5. Open your app**
+You'll see a message saying the server is running, usually at `http://localhost:5173`.
 
-Go to **http://localhost:5173** in your browser. You'll see a login page. Enter:
-- Email: `dev@example.com`
-- Password: `dev`
+### Step 5: Open Your App
 
-You're in. Start chatting with your AI agent.
+Open your web browser and go to **http://localhost:5173**
 
-#### Installing the Superpowers Plugin (Optional but Recommended)
+You'll see a login page. Enter:
+- **Email**: `dev@example.com`
+- **Password**: `dev`
 
-If you're using [Claude Code](https://claude.ai/code) as your AI coding assistant, install the [Superpowers](https://github.com/obra/superpowers) plugin. It gives your assistant structured workflows for brainstorming, debugging, testing, and code review:
+You're in. You'll see a chat interface. Type a message and your AI agent will respond.
+
+### Installing the Superpowers Plugin (Optional)
+
+If you're using [Claude Code](https://claude.ai/code) as your AI coding assistant, the [Superpowers](https://github.com/obra/superpowers) plugin gives your assistant structured workflows for brainstorming, debugging, testing, and code review. To install it, run this in your terminal:
 
 ```bash
 claude plugins install superpowers@claude-plugins-official
 ```
+
+This is optional but recommended if you're using Claude Code for development.
+
+</details>
 
 ---
 
@@ -186,7 +204,8 @@ The blueprint is opinionated but not rigid. Here's what you'll change as you bui
 | Switch authentication | `.env` → `AUTH_PROVIDER=google` | Google sign-in for real users |
 | Switch AI provider | `.env` → `LLM_PROVIDER=openai` | Change with one line, no code changes |
 
-## Project Structure
+<details>
+<summary><strong>Project Structure</strong> (click to expand)</summary>
 
 ```
 src/app/
@@ -205,9 +224,10 @@ docs/           # Architecture docs, lessons learned
 
 See [ARCHITECTURE.md](ARCHITECTURE.md) for detailed descriptions of each layer and how data flows through the system.
 
-## Tech Stack
+</details>
 
-For those who want the specifics:
+<details>
+<summary><strong>Tech Stack</strong> (click to expand)</summary>
 
 | Layer | What It Does | Technology |
 |-------|-------------|-----------|
@@ -220,7 +240,10 @@ For those who want the specifics:
 | **CI/CD** | Automated testing and deployment | GitHub Actions, Docker |
 | **Deployment** | Running in production | Docker Compose or Kubernetes |
 
-## Engineering Practices
+</details>
+
+<details>
+<summary><strong>Engineering Practices</strong> (click to expand)</summary>
 
 You don't need to understand these to use the blueprint — they work automatically. But if you're curious about *why* it's structured the way it is:
 
@@ -231,6 +254,8 @@ You don't need to understand these to use the blueprint — they work automatica
 - **Tracer bullets** — Build a thin slice through all layers first, verify it works, then expand. This catches problems early when they're cheap to fix.
 
 These practices are documented in [CLAUDE.md](CLAUDE.md), which your AI coding assistant reads automatically. It follows the rules so you don't have to enforce them manually.
+
+</details>
 
 ## Documentation
 
