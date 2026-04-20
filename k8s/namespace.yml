@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: app-dev
+  labels:
+    app: ai-agent-blueprint
+    environment: dev
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: app-prod
+  labels:
+    app: ai-agent-blueprint
+    environment: prod

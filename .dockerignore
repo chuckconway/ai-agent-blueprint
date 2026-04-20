@@ -1,0 +1,27 @@
+.git
+.venv
+__pycache__
+*.pyc
+*.pyo
+.env
+.env.*
+!.env.example
+
+# Python tooling caches
+.mypy_cache
+.ruff_cache
+.pytest_cache
+dist
+*.egg-info
+
+# Frontend
+node_modules
+ui/node_modules
+ui/dist
+
+# IDE and misc
+.idea
+.vscode
+.superpowers
+.DS_Store
+*.swp

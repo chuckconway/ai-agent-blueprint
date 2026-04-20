@@ -1,0 +1,49 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: run-migrations
+  namespace: app-dev
+  labels:
+    app: ai-agent-blueprint
+    component: migrations
+spec:
+  backoffLimit: 3
+  template:
+    metadata:
+      labels:
+        app: ai-agent-blueprint
+        component: migrations
+    spec:
+      restartPolicy: Never
+      initContainers:
+        # Wait for PostgreSQL to be ready before running migrations
+        - name: wait-for-postgres
+          image: postgres:16
+          command:
+            - sh
+            - -c
+            - |
+              until pg_isready -h postgres -p 5432 -U app; do
+                echo "Waiting for postgres..."
+                sleep 2
+              done
+          env:
+            - name: PGPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: POSTGRES_PASSWORD
+      containers:
+        - name: migrations
+          # Replace OWNER with your GitHub username or org
+          image: ghcr.io/OWNER/ai-agent-blueprint:dev-latest
+          imagePullPolicy: Always  # Use IfNotPresent for production
+          command: ["alembic", "upgrade", "head"]
+          env:
+            - name: DATABASE_URL
+              value: "postgresql+asyncpg://$(DATABASE_USER):$(POSTGRES_PASSWORD)@$(DATABASE_HOST):$(DATABASE_PORT)/$(DATABASE_NAME)"
+          envFrom:
+            - configMapRef:
+                name: app-config
+            - secretRef:
+                name: app-secrets

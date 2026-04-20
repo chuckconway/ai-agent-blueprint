@@ -1,0 +1,71 @@
+{
+  "checks": [
+    {
+      "name": "Ruff lint",
+      "command": "ruff check src/ tests/",
+      "fix_command": "ruff check --fix src/ tests/",
+      "group": "api"
+    },
+    {
+      "name": "Ruff format",
+      "command": "ruff format --check src/ tests/",
+      "fix_command": "ruff format src/ tests/",
+      "group": "api"
+    },
+    {
+      "name": "Mypy",
+      "command": "mypy --config-file pyproject.toml src/",
+      "group": "api"
+    },
+    {
+      "name": "Unit tests",
+      "command": "pytest tests/ -m \"not integration\" -v",
+      "group": "api"
+    },
+    {
+      "name": "Code health",
+      "command": "python scripts/check_code_health.py",
+      "group": "api"
+    },
+    {
+      "name": "Dead code",
+      "command": "vulture src/app/ vulture_whitelist.py --min-confidence 80 --exclude \"*/tests/*,*test_*\"",
+      "group": "api"
+    },
+    {
+      "name": "Unused deps",
+      "command": "deptry src/",
+      "group": "api"
+    },
+    {
+      "name": "Migration heads",
+      "command": "python scripts/check_migration_heads.py",
+      "group": "api"
+    },
+    {
+      "name": "Import linter",
+      "command": "lint-imports",
+      "group": "api"
+    },
+    {
+      "name": "ESLint",
+      "command": "cd ui && npm run lint",
+      "group": "ui"
+    },
+    {
+      "name": "TypeScript",
+      "command": "cd ui && npx tsc --noEmit",
+      "group": "ui"
+    },
+    {
+      "name": "Jest",
+      "command": "cd ui && npm test -- --ci --passWithNoTests",
+      "group": "ui"
+    },
+    {
+      "name": "UI code health",
+      "command": "bash scripts/check_ui_code_health.sh",
+      "group": "ui"
+    }
+  ]
+}

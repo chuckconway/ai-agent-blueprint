@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+  namespace: app-dev
+  labels:
+    app: ai-agent-blueprint
+data:
+  # Application name
+  APP_NAME: "ai-agent-blueprint"
+
+  # Database connection — password comes from secrets, assembled in deployment env vars
+  # Format: postgresql+asyncpg://user:password@host:port/dbname
+  DATABASE_HOST: "postgres"
+  DATABASE_PORT: "5432"
+  DATABASE_NAME: "app"
+  DATABASE_USER: "app"
+
+  # Redis connection
+  REDIS_URL: "redis://redis:6379/0"
+
+  # Authentication provider (e.g., jwt, oauth)
+  AUTH_PROVIDER: "jwt"
+
+  # LLM configuration — change to match your preferred provider and model
+  LLM_PROVIDER: "anthropic"        # Options: anthropic, openai, google
+  LLM_MODEL: "claude-sonnet-4-20250514"  # Change to your preferred model

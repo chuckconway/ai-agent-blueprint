@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: worker
+  namespace: app-dev
+  labels:
+    app: ai-agent-blueprint
+    component: worker
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ai-agent-blueprint
+      component: worker
+  template:
+    metadata:
+      labels:
+        app: ai-agent-blueprint
+        component: worker
+    spec:
+      containers:
+        - name: worker
+          # Replace OWNER with your GitHub username or org
+          image: ghcr.io/OWNER/ai-agent-blueprint:dev-latest
+          imagePullPolicy: Always  # Use IfNotPresent for production
+          command: ["saq", "app.worker.settings"]
+          env:
+            - name: DATABASE_URL
+              value: "postgresql+asyncpg://$(DATABASE_USER):$(POSTGRES_PASSWORD)@$(DATABASE_HOST):$(DATABASE_PORT)/$(DATABASE_NAME)"
+          envFrom:
+            - configMapRef:
+                name: app-config
+            - secretRef:
+                name: app-secrets
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
